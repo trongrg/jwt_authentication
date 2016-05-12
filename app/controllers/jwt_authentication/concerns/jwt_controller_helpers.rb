@@ -4,10 +4,10 @@ module JwtAuthentication
       extend ActiveSupport::Concern
 
       included do
-        skip_before_filter :verify_authenticity_token  # to avoid Devise check anti forgery token
-        skip_before_filter :verify_signed_out_user  # we do it by ourselves
-        before_filter :allow_params_authentication!
-        before_filter :set_request_format!
+        skip_before_action :verify_authenticity_token, raise: false  # to avoid Devise check anti forgery token
+        skip_before_action :verify_signed_out_user, raise: false  # we do it by ourselves
+        before_action :allow_params_authentication!
+        before_action :set_request_format!
       end
 
       def render_resource_or_errors(resource, options = {})
